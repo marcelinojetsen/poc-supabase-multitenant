@@ -5,9 +5,10 @@ import { revalidatePath } from 'next/cache'
 import { createClient } from '@/utils/supabase/server'
 import { logger } from '@/utils/logger'
 import type { OrderType } from '../types'
+import { createSchemaClient } from '@/utils/supabase/createClient'
 
 export async function getOrders(): Promise<OrderType[]> {
-  const supabase = await createClient()
+  const supabase = await createSchemaClient()
 
   try {
     const { data, error } = await supabase.from('orders').select('*').order('created_at', { ascending: false })
